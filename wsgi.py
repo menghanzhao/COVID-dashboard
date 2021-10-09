@@ -89,8 +89,11 @@ app.layout = html.Div(
     [Input('radioitems-inputs','value'),Input('switch-input','value')],
 )
 def generate_figure(input1, input2):
-    print(len(input2))
-    fig = px.choropleth(df, locations="iso_code",
+    if len(input2) == 1:
+        data = df
+    else:
+        data = df2
+    fig = px.choropleth(data, locations="iso_code",
                     color=input1,
                     hover_name="Country/Region",
                     animation_frame="ObservationDate",
