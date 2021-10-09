@@ -15,15 +15,24 @@ global df, df2
 
 df = pd.read_csv(r'C:\Users\mengh\plotly dash covid app\COVID-dashboard\datasetformapping.csv')
 
+df = df.sort_values(['Country/Region','ObservationDate'],ascending=True)
+
 def add_daily():
     temp = df.copy()
-    temp['Confirmed'] = temp['Confirmed'].diff().fillna(temp['Confirmed'])
-    temp['Recovered'] = temp['Recovered'].diff().fillna(temp['Recovered'])
-    temp['Deaths'] = temp['Deaths'].diff().fillna(temp['Deaths'])
-
-    return temp
+    temp2 = pd.DataFrame()
+    country_ls = list(set(temp['Country/Region']))
+    for c in country_ls:
+        a = temp[temp['Country/Region'] == c]
+        a['Confirmed'] = a['Confirmed'].diff().fillna(a['Confirmed'])
+        a['Recovered'] = a['Recovered'].diff().fillna(a['Recovered'])
+        a['Deaths'] = a['Deaths'].diff().fillna(a['Deaths'])
+        temp2 = temp2.append(a)
+    return temp2
 
 df2 = add_daily()
+
+df = df.sort_values('ObservationDate',ascending=True)
+df2 = df2.sort_values('ObservationDate',ascending=True)
 
 # create the app object
 app = dash.Dash(
