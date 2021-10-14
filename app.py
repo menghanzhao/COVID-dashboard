@@ -44,7 +44,7 @@ server = app.server
 # define layout components
 navbar = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink('Predictions',href='#')),
+
         dbc.NavItem(dbc.NavLink('GitHub',href='https://github.com/menghanzhao/COVID-dashboard')),
 
     ],
