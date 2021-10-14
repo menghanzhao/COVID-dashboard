@@ -16,6 +16,7 @@ global df, df2
 df = pd.read_csv(r'C:\Users\mengh\plotly dash covid app\COVID-dashboard\datasetformapping.csv')
 
 df = df.sort_values(['Country/Region','ObservationDate'],ascending=True)
+df['iso_code'] = df.apply(lambda x: 'USA' if x['Country/Region']=='US' else x['iso_code'],axis=1)
 
 def add_daily():
     temp = df.copy()
